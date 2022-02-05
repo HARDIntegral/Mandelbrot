@@ -3,13 +3,13 @@ CC := gcc
 FILE_TYPE := .c
 DEBUG_FLAGS := -g -O0 -Wall -Wextra
 RELEASE_FLAGS := -O3 -DNDEBUG
-EXT_HEADERS_DIR := /usr/include/python3.9
+EXT_HEADERS_DIR := "/usr/include/python3.9"
 
 SRC_DIR := src/C_SRC/
 HEADER_DIR := src/C_HEADERS
 OBJ_DIR := bin/
 LIB_DIR := src/
-LIB_NAME := lib_mandelbrot
+LIB_NAME := py_mand
 BUILD_TARGET := so
 
 LIB := $(LIB_NAME).$(BUILD_TARGET)
@@ -38,9 +38,9 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%$(FILE_TYPE)
 	@echo [CC] $<
 	@mkdir -p $(@D)
 ifeq ($(shell cat .tmp_data),D)
-	@$(CC) $(DEBUG_FLAGS) $< -c -o $@ -I $(HEADER_DIR) $(EXT_HEADERS_DIR) $(DEP_FLAGS)
+	@$(CC) $(DEBUG_FLAGS) $< -c -o $@ -I$(HEADER_DIR) -I$(EXT_HEADERS_DIR) $(DEP_FLAGS)
 else
-	@$(CC) $(RELEASE_FLAGS) $< -c -o $@ -I $(HEADER_DIR) $(EXT_HEADERS_DIR) $(DEP_FLAGS) 
+	@$(CC) $(RELEASE_FLAGS) $< -c -o $@ -I$(HEADER_DIR) -I$(EXT_HEADERS_DIR) $(DEP_FLAGS) 
 endif
 
 .PHONEY: clean
