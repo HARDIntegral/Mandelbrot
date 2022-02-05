@@ -54,3 +54,4 @@ dkms.conf
 # Other things
 bin/
 .tmp_data
+*.png

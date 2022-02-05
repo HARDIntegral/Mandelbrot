@@ -1,15 +1,17 @@
-#include <Python.h>
-#include <stdio.h>
+#include "mandelbrot.h"
 
-PyObject* add(PyObject* self, PyObject* args) {
-	int x;
-	int y;
-	PyArg_ParseTuple(args, "ii", &x, &y);
-	return PyLong_FromLong(x + y);
+PyObject* plot(PyObject* self, PyObject* args) {
+	int width;
+	int height;
+	int granularity;
+	if (!PyArg_ParseTuple(args, "iii", &width, &height, &granularity))
+		return NULL;
+
+	return __plot_mandel(width, height, granularity);
 }
 
 static PyMethodDef methods[] = {
-	{"add", add, METH_VARARGS, ""},
+	{"plot", plot, METH_VARARGS, ""},
 	{NULL, NULL, 0, NULL}
 };
 
