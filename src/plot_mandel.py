@@ -1,4 +1,8 @@
 import py_mand
 import png
+import sys
 
-png.from_array(py_mand.plot(60000, 40000, 50), 'L').save("test.png")
+width = int(sys.argv[1])
+height = int(sys.argv[2])
+
+png.from_array(py_mand.plot(width, height, 50), 'L').save("test.png")
