@@ -2,7 +2,7 @@
 CC := gcc
 FILE_TYPE := .c
 RELEASE_FLAGS := -O3 -DNDEBUG
-EXT_HEADERS_DIR := "/usr/include/python3.9"
+PYDEV_HEADERS_DIR := ` pkg-config --cflags python3 `
 SRC_DIR := src/C_SRC/
 HEADER_DIR := src/C_HEADERS
 OBJ_DIR := bin/
@@ -29,7 +29,7 @@ build: $(OBJS)
 $(OBJ_DIR)%.o: $(SRC_DIR)%$(FILE_TYPE)
 	@echo [CC] $<
 	@mkdir -p $(@D)
-	@$(CC) $(RELEASE_FLAGS) $< -c -o $@ -I$(HEADER_DIR) -I$(EXT_HEADERS_DIR) $(DEP_FLAGS) 
+	@$(CC) $(RELEASE_FLAGS) $< -c -o $@ -I$(HEADER_DIR) $(PYDEV_HEADERS_DIR) $(DEP_FLAGS) 
 
 .PHONEY: clean
 clean:
